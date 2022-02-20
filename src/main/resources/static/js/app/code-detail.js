@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	// 목록조회
-	$("#codeGroupListBtn").on("click", function() {
-		console.log("codeGroupListBtn");
+	$("#codeDetailListBtn").on("click", function() {
+		console.log("codeDetailListBtn");
 		$.ajax({
 			type : "GET",
-			url : "/codegroups",
+			url : "/codedetails",
 			contentType : "application/json; charseUTF-8",
 			success : function(data) {
 				console.log(data);
@@ -19,16 +19,18 @@ $(document).ready(function(){
 		});
 	});
 	// 상세조회
-	$("#codeGroupReadBtn").on("click", function() {
-		console.log("codeGroupReadBtn");
+	$("#codeDetailReadBtn").on("click", function() {
+		console.log("codeDetailReadBtn");
 		$.ajax({
 			type : "GET",
-			url : /codegroups/ + $("#groupCode").val(),
+			url : "/codedetails/" + $("#codeGroupCode").val() + "/" + $("#codeValue").val(),
 			contentType : "application/json; charset=UTF-8",
 			success : function(data) {
 				alert(JSON.stringify(data));
 				
-				$("#groupName").val(data.groupName);
+				$("#codeGroupCode").val(data.groupCode);
+				$("#codeValue").val(data.codeValue);
+				$("#codeName").val(data.codeName);
 			},
 			error: function(xhr, textStatus, error) {
 				alert("code:" + xhr.status + "\n"
@@ -38,17 +40,18 @@ $(document).ready(function(){
 		});
 	});
 	// 등록
-	$("#codeGroupRegisterBtn").on("click", function() {
+	$("#codeDetailRegisterBtn").on("click", function() {
 		var codeGroupObject = {
-			groupCode : $("#groupCode").val(),
-			groupName : $("#groupName").val()
+			groupCode : $("#codeGroupCode").val(),
+			groupValue : $("#codeValue").val(),
+			groupName : $("#codeName").val()
 		};
 			
 		alert(JSON.stringify(codeGroupObject));
 		
 		$.ajax({
 			type : "POST",
-			url : "/codegroups",
+			url : "/codedetails",
 			data : JSON.stringify(codeGroupObject),
 			contentType : "application/json; charset=UTF-8",
 			success : function() {
@@ -62,10 +65,10 @@ $(document).ready(function(){
 		});
 	});
 	// 삭제
-	$("#codeGroupDeleteBtn").on("click", function() {
+	$("#codeDetailDeleteBtn").on("click", function() {
 		$.ajax({
 			type : "DELETE",
-			url : /codegroups/ + $("#groupCode").val(),
+			url : "/codedetails/" + $("#codeGroupCode").val() + "/" + $("#codeValue").val(),
 			contentType : "application/json; charset=UTF-8",
 			success : function() {
 				alert("Deleted");
@@ -78,19 +81,19 @@ $(document).ready(function(){
 		});
 	});
 	// 수정
-	$("#codeGroupModifyBtn").on("click", function() {
-		var groupCodeVal = $("#groupCode").val();
+	$("#codeDetailModifyBtn").on("click", function() {
+		var groupCodeVal = $("#codeGroupCode").val();
+		var codeValueVal = $("#codeValue").val();
 		
 		var codeGroupObject = {
-			groupCode : groupCodeVal,
-			groupName : $("#groupName").val()
+			codeValueVal : codeValueVal,
+			groupName : $("#codeame").val()
 		};
 			
 		$.ajax({
 			type : "PUT",
-			url : "/codegroups/" + groupCodeVal,
-			//url : "/codegroups",
-			data : JSON.stringify(codeGroupObject),
+			url : "/codedetails/" + groupCodeVal + "/" + codeValueVal,
+			data : JSON.stringify(codeDetailObject),
 			contentType : "application/json; charset=UTF-8",
 			success : function() {
 				alert("Modified");
@@ -103,8 +106,17 @@ $(document).ready(function(){
 		});
 	});
 	// 입력값 리셋
-	$("#codeGroupResetBtn").on("click", function() {
-		$("#groupCode").val("");
-		$("#groupName").val("");
+	$("#codeDetailResetBtn").on("click", function() {
+		$("#codeGroupCode").val("");
+		$("#codeValue").val("");
+		$("#codeName").val("");
+	});
+	
+	// 화면 초기값 로딩
+	$.getJSON("/codes/codeGroup", function(list) {
+		$(list).each(function(){
+			var str = "<option value='" + this.value + "'>" + this.label + "</option>";
+			$("#codeGroupCode").append(str);
+		});
 	});
 })

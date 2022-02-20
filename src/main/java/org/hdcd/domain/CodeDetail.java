@@ -1,50 +1,47 @@
 package org.hdcd.domain;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@JsonIgnoreProperties(value="hibernateLazyInitializer")
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(of = {"groupCode", "codeValue"})
 @Entity
-@EqualsAndHashCode(of="groupCode")
-@Table(name="code_group")
-public class CodeGroup {
-	
+@IdClass(CodeDetailId.class)
+@Table(name="code_detail")
+public class CodeDetail {
+
 	@Id
-	@Column(length=3)
+	@Column(length = 3)
 	private String groupCode;
 	
-	@Column(length=30, nullable = false)
-	private String groupName;
+	@Id
+	@Column(length = 3)
+	private String codeValue;
 	
-	@Column(length=1)
+	@Column(length = 30, nullable = false)
+	private String codeName;
+	
+	private int sortSeq;
+	
+	@Column(length = 1)
 	private String useYn = "Y";
-	
-	@JsonIgnore
-	@OneToMany
-	@JoinColumn(name="groupCode")
-	private List<CodeDetail> codeDetails;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	@CreationTimestamp
@@ -53,7 +50,4 @@ public class CodeGroup {
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	@UpdateTimestamp
 	private LocalDateTime updDate;
-	
-	
-
 }
