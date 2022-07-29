@@ -43,10 +43,10 @@ $(document).ready(function(){
 	$("#codeDetailRegisterBtn").on("click", function() {
 		var codeGroupObject = {
 			groupCode : $("#codeGroupCode").val(),
-			groupValue : $("#codeValue").val(),
-			groupName : $("#codeName").val()
+			codeValue : $("#codeValue").val(),
+			codeName : $("#codeName").val()
 		};
-			
+
 		alert(JSON.stringify(codeGroupObject));
 		
 		$.ajax({
@@ -64,30 +64,15 @@ $(document).ready(function(){
 			}
 		});
 	});
-	// 삭제
-	$("#codeDetailDeleteBtn").on("click", function() {
-		$.ajax({
-			type : "DELETE",
-			url : "/codedetails/" + $("#codeGroupCode").val() + "/" + $("#codeValue").val(),
-			contentType : "application/json; charset=UTF-8",
-			success : function() {
-				alert("Deleted");
-			},
-			error: function(xhr, textStatus, error) {
-				alert("code:" + xhr.status + "\n"
-				+ "message:" + xhr.responseText + "\n"
-				+ "error:" + error);
-			}
-		});
-	});
 	// 수정
 	$("#codeDetailModifyBtn").on("click", function() {
 		var groupCodeVal = $("#codeGroupCode").val();
 		var codeValueVal = $("#codeValue").val();
 		
-		var codeGroupObject = {
-			codeValueVal : codeValueVal,
-			groupName : $("#codeame").val()
+		var codeDetailObject = {
+		    groupCode : groupCodeVal,
+			codeValue : codeValueVal,
+			codeName : $("#codeName").val()
 		};
 			
 		$.ajax({
@@ -97,6 +82,22 @@ $(document).ready(function(){
 			contentType : "application/json; charset=UTF-8",
 			success : function() {
 				alert("Modified");
+			},
+			error: function(xhr, textStatus, error) {
+				alert("code:" + xhr.status + "\n"
+				+ "message:" + xhr.responseText + "\n"
+				+ "error:" + error);
+			}
+		});
+	});
+    // 삭제
+	$("#codeDetailDeleteBtn").on("click", function() {
+		$.ajax({
+			type : "DELETE",
+			url : "/codedetails/" + $("#codeGroupCode").val() + "/" + $("#codeValue").val(),
+			contentType : "application/json; charset=UTF-8",
+			success : function() {
+				alert("Deleted");
 			},
 			error: function(xhr, textStatus, error) {
 				alert("code:" + xhr.status + "\n"

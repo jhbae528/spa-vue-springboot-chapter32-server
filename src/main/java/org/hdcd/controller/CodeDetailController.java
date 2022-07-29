@@ -23,23 +23,23 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/codedetails")
-public class CodeDeatilController {
+public class CodeDetailController {
 
 	private final CodeDetailService codeDetailservice;
-	
+
+	@GetMapping
+	public ResponseEntity<List<CodeDetail>> list() throws Exception {
+		log.info("list");
+
+		return new ResponseEntity<>(codeDetailservice.list(), HttpStatus.OK);
+	}
+
 	@GetMapping("/{groupCode}/{codeValue}")
 	public ResponseEntity<CodeDetail> read(@PathVariable("groupCode") String groupCode, @PathVariable("codeValue") String codeValue) throws Exception {
 		CodeDetail codeDetail = new CodeDetail();
 		codeDetail.setGroupCode(groupCode);
 		codeDetail.setCodeValue(codeValue);
 		return new ResponseEntity<CodeDetail>(codeDetailservice.read(codeDetail), HttpStatus.OK);
-	}
-	
-	@GetMapping
-	public ResponseEntity<List<CodeDetail>> list() throws Exception {
-		log.info("list");
-		
-		return new ResponseEntity<>(codeDetailservice.list(), HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -77,6 +77,4 @@ public class CodeDeatilController {
 		
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
-	
 }
