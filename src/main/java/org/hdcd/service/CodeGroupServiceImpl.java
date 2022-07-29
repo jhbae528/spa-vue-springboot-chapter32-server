@@ -15,16 +15,20 @@ import lombok.RequiredArgsConstructor;
 public class CodeGroupServiceImpl implements CodeGroupService {
 
 	private final CodeGroupRepository repository;
-	
+
 	@Override
-	public void register(CodeGroup codeGroup) throws Exception {
-		repository.save(codeGroup);
-		
+	public List<CodeGroup> list() throws Exception {
+		return repository.findAll(Sort.by(Direction.DESC, "groupCode"));
 	}
 
 	@Override
 	public CodeGroup read(String groupCode) throws Exception {
 		return repository.getOne(groupCode);
+	}
+
+	@Override
+	public void register(CodeGroup codeGroup) throws Exception {
+		repository.save(codeGroup);
 	}
 
 	@Override
@@ -39,10 +43,5 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 	@Override
 	public void remove(String groupCode) throws Exception {
 		repository.deleteById(groupCode);
-	}
-	
-	@Override
-	public List<CodeGroup> list() throws Exception {
-		return repository.findAll(Sort.by(Direction.DESC, "groupCode"));
 	}
 }

@@ -25,7 +25,7 @@ $(document).ready(function(){
 		console.log("codeGroupReadBtn");
 		$.ajax({
 			type : "GET",
-			url : /codegroups/ + $("#groupCode").val(),
+			url : "/codegroups/" + $("#groupCode").val(),
 			contentType : "application/json; charset=UTF-8",
 			success : function(data) {
 				alert(JSON.stringify(data));
@@ -95,7 +95,7 @@ $(document).ready(function(){
     $("#codeGroupDeleteBtn").on("click", function() {
         $.ajax({
             type : "DELETE",
-            url : /codegroups/ + $("#groupCode").val(),
+            url : "/codegroups/" + $("#groupCode").val(),
             contentType : "application/json; charset=UTF-8",
             success : function() {
                 alert("Deleted");

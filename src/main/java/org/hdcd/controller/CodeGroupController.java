@@ -28,6 +28,7 @@ public class CodeGroupController {
 
 	private final CodeGroupService service;
 
+	// 목록
 	@GetMapping
 	public ResponseEntity<List<CodeGroup>> list() throws Exception {
 		log.info("list");
@@ -52,6 +53,7 @@ public class CodeGroupController {
 		if(StringUtils.hasText(codeGroup.getGroupCode()) != true){
 			throw new Exception("Empty GroupCode");
 		}
+
 		service.register(codeGroup);
 		
 		log.info("register codeGroup = " + codeGroup.getGroupCode());		

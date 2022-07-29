@@ -16,7 +16,20 @@ import lombok.RequiredArgsConstructor;
 public class CodeDetailServiceImpl implements CodeDetailService {
 
 	private final CodeDetailRepository repository;
-	
+
+	@Override
+	public List<CodeDetail> list() throws Exception {
+		return repository.findAll(Sort.by(Direction.ASC, "groupCode", "codeValue"));
+	}
+
+	@Override
+	public CodeDetail read(CodeDetail codeDetail) throws Exception {
+		CodeDetailId codeDetailId = new CodeDetailId();
+		codeDetailId.setGroupCode(codeDetail.getGroupCode());
+		codeDetailId.setCodeValue(codeDetail.getCodeValue());
+		return repository.getOne(codeDetailId);
+	}
+
 	@Override
 	public void register(CodeDetail codeDetail) throws Exception {
 		String groupCode = codeDetail.getGroupCode();
@@ -34,14 +47,6 @@ public class CodeDetailServiceImpl implements CodeDetailService {
 		codeDetail.setSortSeq(maxSortSeq + 1);
 		
 		repository.save(codeDetail);
-	}
-
-	@Override
-	public CodeDetail read(CodeDetail codeDetail) throws Exception {
-		CodeDetailId codeDetailId = new CodeDetailId();
-		codeDetailId.setGroupCode(codeDetail.getGroupCode());
-		codeDetailId.setCodeValue(codeDetail.getCodeValue());
-		return repository.getOne(codeDetailId);
 	}
 
 	@Override
@@ -65,10 +70,5 @@ public class CodeDetailServiceImpl implements CodeDetailService {
 		codeDetailId.setCodeValue(codeDetail.getCodeValue());
 		
 		repository.deleteById(codeDetailId);
-	}
-
-	@Override
-	public List<CodeDetail> list() throws Exception {
-		return repository.findAll(Sort.by(Direction.ASC, "groupCode", "codeValue"));
 	}
 }
