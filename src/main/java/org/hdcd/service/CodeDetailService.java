@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hdcd.domain.CodeDetail;
 
-public interface CodeDetailservice {
+public interface CodeDetailService {
 	
 	public List<CodeDetail> list() throws Exception;
 	

@@ -1,11 +1,12 @@
 $(document).ready(function(){
+
 	// 목록조회
 	$("#codeGroupListBtn").on("click", function() {
 		console.log("codeGroupListBtn");
 		$.ajax({
 			type : "GET",
 			url : "/codegroups",
-			contentType : "application/json; charseUTF-8",
+			contentType : "application/json; charsetUTF-8",
 			success : function(data) {
 				console.log(data);
 				
@@ -18,6 +19,7 @@ $(document).ready(function(){
 			}
 		});
 	});
+
 	// 상세조회
 	$("#codeGroupReadBtn").on("click", function() {
 		console.log("codeGroupReadBtn");
@@ -37,6 +39,7 @@ $(document).ready(function(){
 			}
 		});
 	});
+
 	// 등록
 	$("#codeGroupRegisterBtn").on("click", function() {
 		var codeGroupObject = {
@@ -61,22 +64,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	// 삭제
-	$("#codeGroupDeleteBtn").on("click", function() {
-		$.ajax({
-			type : "DELETE",
-			url : /codegroups/ + $("#groupCode").val(),
-			contentType : "application/json; charset=UTF-8",
-			success : function() {
-				alert("Deleted");
-			},
-			error: function(xhr, textStatus, error) {
-				alert("code:" + xhr.status + "\n"
-				+ "message:" + xhr.responseText + "\n"
-				+ "error:" + error);
-			}
-		});
-	});
+
 	// 수정
 	$("#codeGroupModifyBtn").on("click", function() {
 		var groupCodeVal = $("#groupCode").val();
@@ -102,6 +90,24 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+    // 삭제
+    $("#codeGroupDeleteBtn").on("click", function() {
+        $.ajax({
+            type : "DELETE",
+            url : /codegroups/ + $("#groupCode").val(),
+            contentType : "application/json; charset=UTF-8",
+            success : function() {
+                alert("Deleted");
+            },
+            error: function(xhr, textStatus, error) {
+                alert("code:" + xhr.status + "\n"
+                + "message:" + xhr.responseText + "\n"
+                + "error:" + error);
+            }
+        });
+    });
+
 	// 입력값 리셋
 	$("#codeGroupResetBtn").on("click", function() {
 		$("#groupCode").val("");

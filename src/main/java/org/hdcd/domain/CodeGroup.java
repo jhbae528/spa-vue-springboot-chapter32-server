@@ -53,7 +53,4 @@ public class CodeGroup {
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	@UpdateTimestamp
 	private LocalDateTime updDate;
-	
-	
-
 }

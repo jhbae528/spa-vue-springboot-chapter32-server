@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class CodeDetailServiceImpl implements CodeDetailservice{
+public class CodeDetailServiceImpl implements CodeDetailService {
 
 	private final CodeDetailRepository repository;
 	
@@ -34,7 +34,6 @@ public class CodeDetailServiceImpl implements CodeDetailservice{
 		codeDetail.setSortSeq(maxSortSeq + 1);
 		
 		repository.save(codeDetail);
-		
 	}
 
 	@Override

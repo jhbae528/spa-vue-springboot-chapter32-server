@@ -5,7 +5,7 @@ $(document).ready(function(){
 		$.ajax({
 			type : "GET",
 			url : "/codedetails",
-			contentType : "application/json; charseUTF-8",
+			contentType : "application/json; charsetUTF-8",
 			success : function(data) {
 				console.log(data);
 				

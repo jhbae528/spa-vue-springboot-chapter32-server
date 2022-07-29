@@ -3,7 +3,7 @@ package org.hdcd.controller;
 import java.util.List;
 
 import org.hdcd.domain.CodeDetail;
-import org.hdcd.service.CodeDetailservice;
+import org.hdcd.service.CodeDetailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/codedetails")
 public class CodeDeatilController {
 
-	private final CodeDetailservice codeDetailservice;
+	private final CodeDetailService codeDetailservice;
 	
 	@GetMapping("/{groupCode}/{codeValue}")
 	public ResponseEntity<CodeDetail> read(@PathVariable("groupCode") String groupCode, @PathVariable("codeValue") String codeValue) throws Exception {
