@@ -30,51 +30,47 @@ public class CodeDetailController {
 	@GetMapping
 	public ResponseEntity<List<CodeDetail>> list() throws Exception {
 		log.info("list");
-
-		return new ResponseEntity<>(codeDetailservice.list(), HttpStatus.OK);
+		List<CodeDetail> response = codeDetailservice.list();
+		return new ResponseEntity<List<CodeDetail>>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/{groupCode}/{codeValue}")
 	public ResponseEntity<CodeDetail> read(@PathVariable("groupCode") String groupCode, @PathVariable("codeValue") String codeValue) throws Exception {
+		log.info("read");
 		CodeDetail codeDetail = new CodeDetail();
 		codeDetail.setGroupCode(groupCode);
 		codeDetail.setCodeValue(codeValue);
-		return new ResponseEntity<CodeDetail>(codeDetailservice.read(codeDetail), HttpStatus.OK);
+		CodeDetail response = codeDetailservice.read(codeDetail);
+		return new ResponseEntity<CodeDetail>(response, HttpStatus.OK);
 	}
 	
 	@PostMapping
 	public ResponseEntity<CodeDetail> register(@Validated @RequestBody CodeDetail codeDetail) throws Exception {
 		log.info("register");
-		
 		codeDetailservice.register(codeDetail);
-		
 		log.info("codeClassNo = " + codeDetail.getGroupCode());
 		log.info("codeValue = " + codeDetail.getCodeValue());
-		
 		return new ResponseEntity<CodeDetail>(codeDetail, HttpStatus.OK);
 	}
 	
 	@PutMapping("/{groupCode}/{codeValue}")
 	public ResponseEntity<CodeDetail> modify(@PathVariable("groupCode") String groupCode, 
-			@PathVariable("codeValue") String codeValue, 
-			@RequestBody CodeDetail codeDetail) throws Exception {
+											@PathVariable("codeValue") String codeValue,
+											@RequestBody CodeDetail codeDetail) throws Exception {
+		log.info("modify");
 		codeDetail.setGroupCode(groupCode);
 		codeDetail.setCodeValue(codeValue);
-		
 		codeDetailservice.modify(codeDetail);
-		
-		return new ResponseEntity<CodeDetail>(codeDetail, HttpStatus.OK);		
+		return new ResponseEntity<CodeDetail>(codeDetail, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{groupCode}/{codeValue}")
 	public ResponseEntity<Void> remove(@PathVariable("groupCode") String groupCode, @PathVariable("codeValue") String CodeValue	) throws Exception {
-		
+		log.info("remove");
 		CodeDetail codeDetail = new CodeDetail();
 		codeDetail.setGroupCode(groupCode);
 		codeDetail.setCodeValue(CodeValue);
-		
 		codeDetailservice.remove(codeDetail);
-		
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 }

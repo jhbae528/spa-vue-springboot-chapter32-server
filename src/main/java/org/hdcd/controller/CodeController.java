@@ -24,9 +24,18 @@ public class CodeController {
 	// 코드그룹 목록 조회
 	@GetMapping("/codeGroup")
 	public ResponseEntity<List<CodeLabelValue>> codeGroupList() throws Exception {
-		
 		log.info("codeGroupList");
-		return new ResponseEntity<List<CodeLabelValue>>(codeService.getCodeGroupList(), HttpStatus.OK);
+		List<CodeLabelValue> list = codeService.getCodeGroupList();
+		return new ResponseEntity<List<CodeLabelValue>>(list, HttpStatus.OK);
+	}
+
+	// 직업코드 목록 조회
+	@GetMapping("/job")
+	public ResponseEntity<List<CodeLabelValue>> jobList() throws Exception {
+		log.info("jobList");
+		String classCode = "A01";
+		List<CodeLabelValue> list = codeService.getCodeList(classCode);
+		return new ResponseEntity<List<CodeLabelValue>>(list, HttpStatus.OK);
 	}
 	
 }

@@ -19,7 +19,8 @@ public class CodeDetailServiceImpl implements CodeDetailService {
 
 	@Override
 	public List<CodeDetail> list() throws Exception {
-		return repository.findAll(Sort.by(Direction.ASC, "groupCode", "codeValue"));
+		List<CodeDetail> list = repository.findAll(Sort.by(Direction.ASC, "groupCode", "codeValue"));
+		return list;
 	}
 
 	@Override
