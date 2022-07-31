@@ -2,11 +2,12 @@ $(document).ready(function(){
 
     // 목록조회
     $("#memberListBtn").on("click", function(){
+        
         $.ajax({
             type : "GET",
             url : "/users",
             contentType : "application/json; charset=UTF-8",
-            success : function() {
+            success : function(data) {
                 console.log(data);
                 alert(JSON.stringify(data));
             },
@@ -24,13 +25,13 @@ $(document).ready(function(){
             type : "GET",
             url : "/users/" + $("#userNo").val(),
             contentType : "application/json; charset=UTF-8",
-            success : function() {
+            success : function(data) {
                 console.log(data);
                 alert(JSON.stringify(data));
 
                 $("#memberId").val(data.userId);
                 $("#memberPw").val(data.userPw);
-                $("#memberName").val(data.memberName);
+                $("#memberName").val(data.userName);
                 $("#job").val(data.job);
 
                 if(data.authList[0]){

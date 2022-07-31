@@ -50,7 +50,7 @@ public class MemberController {
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
-    @PutMapping("/{userNo}/{userName}")
+    @PutMapping("/{userNo}")
     public ResponseEntity<Member> modify(@PathVariable("userNo") Long userNo, @RequestBody Member member) throws Exception {
         log.info("modify : member.getUserName() = " + member.getUserName());
         log.info("modify : userNo = " + userNo);

@@ -46,7 +46,7 @@ public class CodeServiceImpl implements CodeService {
 			CodeLabelValue codeLabelValue = new CodeLabelValue(codeDetail.getCodeValue(), codeDetail.getCodeName());
 			codeList.add(codeLabelValue);
 		}
-		return null;
+		return codeList;
 	}
 
 }
