@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
+    // JPA 쿼리메서드를 사용하여 사용자 정보 조회
+    public List<Member> findByUserId(String userId);
+
     @Query("SELECT m.userNo, m.userId, m.userPw, m.userName, cd.codeName, m.coin, m.regDate "
             + "FROM Member m "
             + "INNER JOIN CodeDetail cd ON cd.codeValue = m.job "
