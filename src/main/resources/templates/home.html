@@ -10,13 +10,14 @@
 <script src="/js/app/code-group.js"></script>
 <script src="/js/app/code-detail.js"></script>
 <script src="/js/app/member.js"></script>
+<script src="/js/app/setup-admin.js"></script>
 
 	<body>
 
 		<h2 th:text="#{common.homeWelcome}"></h2>
 		<p th:text="${serverTime}">시간 표시</p>
 
-		<!-- 코드그룹 REST 클라이언트 인터페이스를 추가한다. -->
+		<!-- 코드그룹 REST 클라이언트 인터페이스 -->
 		<hr>
 
 		<h3>CodeGroup</h3>
@@ -69,7 +70,7 @@
 			<button id="codeDetailDeleteBtn">DELETE</button>
 		</div>
 
-		<!-- 회원관리 REST 클라이언트 인터페이스를 추가한다. -->
+		<!-- 회원관리 REST 클라이언트 인터페이스 -->
 		<hr>
 		<h3>Member</h3>
 
@@ -136,6 +137,31 @@
 			<button id="memberRegisterBtn">REGISTER</button>
 			<button id="memberModifyBtn">MODIFY</button>
 			<button id="memberDeleteBtn">DELETE</button>
+		</div>
+
+
+		<!-- 최초관리자 생성 REST 클라이언트 인터페이스 -->
+		<hr>
+		<h3>Setup Admin</h3>
+
+		<table>
+			<tr>
+				<td><label for="adminId">userId</label></td>
+				<td><input type="text" id="adminId" value=""></td>
+			</tr>
+			<tr>
+				<td><label for="adminPw">userPw</label></td>
+				<td><input type="text" id="adminPw" value=""></td>
+			</tr>
+			<tr>
+				<td><label for="adminName">userName</label></td>
+				<td><input type="text" id="adminName" value=""></td>
+			</tr>
+		</table>
+
+		<div>
+			<button id="adminResetBtn">RESET</button>
+			<button id="adminRegisterBtn">REGISTER</button>
 		</div>
 	</body>
 

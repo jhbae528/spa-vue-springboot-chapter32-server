@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hdcd.domain.Member;
 import org.hdcd.service.MemberService;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,6 +21,8 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final MessageSource messageSource;
 
     // 비밀번호 암호처리기
     private final PasswordEncoder passwordEncoder;
@@ -40,12 +44,9 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<Member> register(@Validated @RequestBody Member member) throws Exception {
         log.info("register member.getUserName() = " + member.getUserName());
-
         String inputPassword = member.getUserPw();
         member.setUserPw(passwordEncoder.encode(inputPassword));
-
         memberService.register(member);
-
         log.info("register member.getUserNo() = " + member.getUserNo());
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
@@ -59,10 +60,27 @@ public class MemberController {
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{userNo}")
     public ResponseEntity<Void> remove(@PathVariable("userNo") Long userNo) throws Exception {
         log.info("remove");
         memberService.remove(userNo);
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/setup", produces = "text/plain;charset=UTF-8")
+    public ResponseEntity<String> setupAdmin(@Validated @RequestBody Member member) throws Exception {
+        log.info("setup admin : member.getUserName() = " + member.getUserName());
+        log.info("setup admin : service.countAll() = " + memberService.countAll());
+
+        if (memberService.countAll() == 0) {
+            String inputPassword = member.getUserPw();
+            member.setUserPw(passwordEncoder.encode(inputPassword));
+            member.setJob("00");
+            memberService.setupAdmin(member);
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        } else {
+            String message = messageSource.getMessage("common.cannotSetupAdmin", null, Locale.KOREAN);
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
     }
 }

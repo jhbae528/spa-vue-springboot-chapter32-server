@@ -10,9 +10,13 @@ public interface MemberService {
 
     public Member read(Long userNo) throws Exception;
 
-    public void register (Member user) throws Exception;
+    public void register(Member user) throws Exception;
 
-    public void modify (Member user) throws Exception;
+    public void modify(Member user) throws Exception;
 
-    public void remove (Long userNo) throws Exception;
+    public void remove(Long userNo) throws Exception;
+
+    public void setupAdmin(Member member) throws Exception;
+
+    public long countAll() throws Exception;
 }

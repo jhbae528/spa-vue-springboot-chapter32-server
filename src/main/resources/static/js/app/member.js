@@ -48,7 +48,7 @@ $(document).ready(function(){
 				alert("code:" + xhr.status + "\n"
 				+ "message:" + xhr.responseText + "\n"
 				+ "error:" + error);
-			} 
+			}
         });
     });
 
